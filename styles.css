@@ -655,6 +655,24 @@ body {
         flex: 0 0 100%;
         max-width: 100%;
     }
+    .medals-table .table {
+      font-size: 0.85rem;
+      min-width: 600px;
+    }
+    .medals-table .table thead th,
+    .medals-table .table tbody td {
+      white-space: nowrap;
+      padding: 0.4rem 0.5rem;
+    }
+    .medals-table .table-responsive {
+      overflow-x: auto;
+    }
+    .medals-section h2 {
+      font-size: 1.2rem;
+    }
+    .medals-section .table-responsive {
+      margin-bottom: 0.5rem;
+    }
 }
 
 /* Custom Scrollbar */

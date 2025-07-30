@@ -170,6 +170,12 @@
                             Pengurutan berdasarkan: Emas → Perak → Perunggu
                         </small>
                     </p>
+                    <p class="text-center text-muted mb-4">
+                        <small>
+                            <i class="fas fa-calendar-day me-1"></i>
+                            Perolehan Medali Harbak Perum Jasa Tirta II Ke - 58 th per tanggal : <span id="tanggalRealtime"></span>
+                        </small>
+                    </p>
                     <div class="text-center mb-3 admin-controls">
                     </div>
                 </div>
@@ -339,6 +345,20 @@
           drawingImages = ['gambar/tenis meja/jadwalpertandingantenismeja.png'];
         }
 
+        // Format nomor WhatsApp
+        const picPusatNumber = (match.Picpusat || '').replace(/\D/g, '');
+        const picWilayahNumber = (match.Picwilayah || '').replace(/\D/g, '');
+        
+        // Medal information
+        const medalInfo = match.Emas || match.Perak || match.Perunggu ? `
+          <div class="medal-info mt-2 p-2 bg-light rounded">
+            <small class="d-block mb-1"><i class="fas fa-award me-1"></i>Informasi Medali:</small>
+            ${match.Emas ? `<span class="me-2" title="Emas"><i class="fas fa-medal text-warning"></i> ${match.Emas}</span>` : ''}
+            ${match.Perak ? `<span class="me-2" title="Perak"><i class="fas fa-medal text-secondary"></i> ${match.Perak}</span>` : ''}
+            ${match.Perunggu ? `<span title="Perunggu"><i class="fas fa-medal text-bronze"></i> ${match.Perunggu}</span>` : ''}
+          </div>
+        ` : '';
+        
         html += `<div class="col-md-6 mb-4 col-12">
           <div class="card">
             <div class="card-body">
@@ -350,9 +370,24 @@
                 <i class="fas fa-map-marker-alt"></i> ${match.Lokasi} <br>
                 <i class="fas fa-user"></i> ${match.Kontak}
               </p>
-              <div class="mt-3 d-flex gap-2">
-                <button type="button" class="btn btn-outline-primary btn-sm" onclick='showImageModal(${JSON.stringify(detailImages)}, "Ketentuan Pertandingan")'>Detail</button>
-                <button type="button" class="btn btn-outline-success btn-sm" onclick='showImageModal(${JSON.stringify(drawingImages)}, "Drawing Pertandingan")'>Drawing</button>
+              ${medalInfo}
+              <div class="mt-3">
+                <div class="d-flex gap-2 mb-2">
+                  <button type="button" class="btn btn-outline-primary btn-sm" onclick='showImageModal(${JSON.stringify(detailImages)}, "Ketentuan Pertandingan")'>Detail</button>
+                  <button type="button" class="btn btn-outline-success btn-sm" onclick='showImageModal(${JSON.stringify(drawingImages)}, "Drawing Pertandingan")'>Drawing</button>
+                </div>
+                <div class="d-flex gap-2">
+                  ${picPusatNumber ? `
+                    <a href="https://wa.me/${picPusatNumber}" target="_blank" class="btn btn-success btn-sm w-50">
+                      <i class="fab fa-whatsapp me-1"></i>PIC Pusat
+                    </a>
+                  ` : ''}
+                  ${picWilayahNumber ? `
+                    <a href="https://wa.me/${picWilayahNumber}" target="_blank" class="btn btn-success btn-sm w-50">
+                      <i class="fab fa-whatsapp me-1"></i>PIC Wilayah
+                    </a>
+                  ` : ''}
+                </div>
               </div>
             </div>
           </div>
@@ -422,7 +457,7 @@ function showImageModal(imgArr, title) {
 }
 </script>
 <script>
-  setTimeout(() => location.reload(), 5 * 60 * 1000);
+  setTimeout(() => location.reload(), 35 * 60 * 1000);
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -458,6 +493,28 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+});
+</script>
+<script>
+function updateTanggal() {
+    const hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    const bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    
+    const sekarang = new Date();
+    const namaHari = hari[sekarang.getDay()];
+    const tanggal = sekarang.getDate();
+    const namaBulan = bulan[sekarang.getMonth()];
+    const tahun = sekarang.getFullYear();
+    
+    document.getElementById('tanggalRealtime').textContent = 
+        `${namaHari}, ${tanggal} ${namaBulan} ${tahun}`;
+}
+
+// Update tanggal saat halaman dimuat
+document.addEventListener('DOMContentLoaded', function() {
+    updateTanggal();
+    // Update setiap menit
+    setInterval(updateTanggal, 60000);
 });
 </script>
 </body>

@@ -265,8 +265,6 @@ body {
     font-style: italic;
 }
 
-
-
 .medals-table {
     background: rgba(255, 255, 255, 0.8) !important;
     border-radius: 15px;
@@ -487,6 +485,19 @@ body {
     color: white;
 }
 
+/* WhatsApp button styling */
+.btn-success {
+    background: #25d366;
+    border-color: #25d366;
+}
+
+.btn-success:hover {
+    background: #128c7e;
+    border-color: #128c7e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(37, 211, 102, 0.2);
+}
+
 /* Animations */
 @keyframes fadeInUp {
     from {
@@ -531,6 +542,60 @@ body {
 
 .slide-in-right {
     animation: slideInRight 0.6s ease-out;
+}
+
+/* Gallery Section */
+.gallery-section {
+    background: rgba(248, 249, 250, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.gallery-item {
+    cursor: pointer;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.gallery-item img {
+    transition: all 0.3s ease;
+    object-fit: cover;
+    aspect-ratio: 16/9;
+    width: 100%;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
+}
+
+#galleryModal .modal-content {
+    background: transparent;
+    border: none;
+}
+
+#galleryModal .modal-body {
+    padding: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: black;
+}
+
+#galleryModalImage {
+    max-height: 90vh;
+    object-fit: contain;
+    width: 100%;
+}
+
+.btn-close {
+    z-index: 1050;
+    opacity: 0.8;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+.btn-close:hover {
+    opacity: 1;
+    background-color: white;
 }
 
 /* Responsive Design */
@@ -1184,5 +1249,23 @@ body {
     margin-bottom: 1rem;
     object-fit: contain;
   }
+}
+
+.medal-info {
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(255,255,255,0.7) !important;
+    backdrop-filter: blur(5px);
+}
+
+.medal-info span {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.9);
+    font-weight: 500;
+}
+
+.medal-info i.fa-award {
+    color: #6c757d;
 }
 

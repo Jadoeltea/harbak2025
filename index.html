@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harbak ke 58 th Perum Jasa Tirta II</title>
+    <link rel="icon" type="image/png" href="gambar/logoapps.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container"></div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+      <div class="container-fluid px-2">
+        <a class="navbar-brand mx-auto mx-lg-0 fw-bold" href="#" style="font-size:1rem;">
+          58 th PJT II <span style="font-size:0.9rem;font-weight:500;">"Wilayah.4 ISTIMEWA!!"</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link active" href="#home">Beranda</a></li>
+            <li class="nav-item"><a class="nav-link" href="#schedule">Jadwal</a></li>
+            <li class="nav-item"><a class="nav-link" href="#medals">Medali</a></li>
+            <li class="nav-item"><a class="nav-link" href="#teams">Tim</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Edit Medal Modal -->
+    <div class="modal fade" id="editMedalModal" tabindex="-1" aria-labelledby="editMedalModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editMedalModalLabel">
+                        <i class="fas fa-medal me-2"></i>Edit Perolehan Medali
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editMedalForm">
+                        <div class="mb-3">
+                            <label class="form-label">Tim</label>
+                            <input type="text" class="form-control" id="editTeamName" readonly>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="editGold" class="form-label">
+                                    <i class="fas fa-medal text-warning me-1"></i>Emas
+                                </label>
+                                <input type="number" class="form-control" id="editGold" min="0" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="editSilver" class="form-label">
+                                    <i class="fas fa-medal text-secondary me-1"></i>Perak
+                                </label>
+                                <input type="number" class="form-control" id="editSilver" min="0" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="editBronze" class="form-label">
+                                    <i class="fas fa-medal text-bronze me-1"></i>Perunggu
+                                </label>
+                                <input type="number" class="form-control" id="editBronze" min="0" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="saveMedalBtn">
+                        <i class="fas fa-save me-1"></i>Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar ... -->
+    <img src="logoatas.png" class="banner-full" alt="Banner">
+
+    <!-- Mengganti text header dengan LogoUtama -->
+    <div class="text-center" style="margin-bottom:-32px;">
+        <img src="LogoUtama.png" alt="Logo Utama HARBAK" style="max-width: 300px; height: auto;">
+    </div>
+
+    <!-- Stats Section -->
+    <section class="stats-section py-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="stat-card">
+                        <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                        <h3 class="fw-bold" id="totalTeams">6</h3>
+                        <p class="text-muted">Tim Peserta</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="stat-card">
+                        <i class="fas fa-calendar-alt fa-3x text-success mb-3"></i>
+                        <h3 class="fw-bold" id="totalMatches">48</h3>
+                        <p class="text-muted">Pertandingan</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="stat-card">
+                        <i class="fas fa-medal fa-3x text-warning mb-3"></i>
+                        <h3 class="fw-bold" id="totalMedals">12</h3>
+                        <p class="text-muted">Medali</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="stat-card">
+                        <i class="fas fa-trophy fa-3x text-danger mb-3"></i>
+                        <h3 class="fw-bold" id="totalSports">8</h3>
+                        <p class="text-muted">Cabang Olahraga</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="schedule-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="text-center mb-5">
+                        <i class="fas fa-calendar-alt me-2"></i>
+                        Jadwal Pertandingan
+                    </h2>
+                </div>
+            </div>
+            
+            <!-- Schedule Cards -->
+            <div class="row" id="scheduleContainer">
+                <!-- Schedule cards will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Medals Section -->
+    <section id="medals" class="medals-section py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="text-center mb-5">
+                        <i class="fas fa-medal me-2"></i>
+                        Papan Medali
+                    </h2>
+                    <p class="text-center text-muted mb-4">
+                        <small>
+                            <i class="fas fa-info-circle me-1"></i>
+                            Pengurutan berdasarkan: Emas → Perak → Perunggu
+                        </small>
+                    </p>
+                    <p class="text-center text-muted mb-4">
+                        <small>
+                            <i class="fas fa-calendar-day me-1"></i>
+                            Perolehan Medali Harbak Perum Jasa Tirta II Ke - 58 th per tanggal : <span id="tanggalRealtime"></span>
+                        </small>
+                    </p>
+                    <div class="text-center mb-3 admin-controls">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <div class="medals-table">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Peringkat</th>
+                                        <th>Tim</th>
+                                        <th class="text-center">
+                                            <i class="fas fa-medal text-warning"></i>
+                                        </th>
+                                        <th class="text-center">
+                                            <i class="fas fa-medal text-secondary"></i>
+                                        </th>
+                                        <th class="text-center">
+                                            <i class="fas fa-medal text-bronze"></i>
+                                        </th>
+                                        <th class="text-center">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="medalsTableBody">
+                                    <!-- Medals data will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teams Section -->
+    <section id="teams" class="teams-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="text-center mb-5">
+                        <i class="fas fa-users me-2"></i>
+                        Tim Peserta
+                    </h2>
+                </div>
+            </div>
+            
+            <div class="row" id="teamsContainer">
+                <!-- Team cards will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="text-center mb-5">
+                        <i class="fas fa-images me-2"></i>
+                        Galeri
+                    </h2>
+                </div>
+            </div>
+            <div id="galleryCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row g-4">
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_6913.JPG" alt="Gallery 1" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_7045.JPG" alt="Gallery 2" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_7127.JPG" alt="Gallery 3" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row g-4">
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_7230.JPG" alt="Gallery 4" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_7243.JPG" alt="Gallery 5" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_7272.JPG" alt="Gallery 6" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row g-4">
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_7488.jpg" alt="Gallery 7" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_7520.jpg" alt="Gallery 8" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_7640.jpg" alt="Gallery 9" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row g-4">
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_6914.JPG" alt="Gallery 10" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_8122.jpg" alt="Gallery 11" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_8123.jpg" alt="Gallery 12" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row g-4">
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_8124.jpg" alt="Gallery 13" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_8125.jpg" alt="Gallery 14" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_8126.jpg" alt="Gallery 15" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row g-4">
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_4154 (1).JPG" alt="Gallery 16" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_4154 (2).JPG" alt="Gallery 17" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_4154 (3).JPG" alt="Gallery 18" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row g-4">
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_4461-225.JPG" alt="Gallery 19" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_4541-273.JPG" alt="Gallery 20" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_4543-275.JPG" alt="Gallery 21" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row g-4">
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_0434.jpg" alt="Gallery 22" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_0493.jpg" alt="Gallery 23" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6 gallery-item">
+                                <div class="gallery-image-wrapper" style="padding-top: 75%; position: relative;">
+                                    <img src="galeri/TJO_0573.jpg" alt="Gallery 24" class="img-fluid rounded shadow-sm position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="showGalleryImage(this.src)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+      <div class="container text-center">
+        <small>copyright @Tim Kreatif Wilayah.4</small>
+        <div class="mt-2">
+          <a href="https://www.instagram.com/wilayah.4?igsh=NTc4MTIwNjQ2YQ==" target="_blank" title="Instagram" style="margin-right:16px; color:#E4405F;"><i class="fab fa-instagram fa-2x"></i></a>
+          <a href="https://drive.google.com/drive/folders/1nDg3eLCyEvdkdUeTRD-AxufwFMpsDo5H?usp=sharing" target="_blank" title="Google Drive" style="color:#4285F4;"><i class="fab fa-google-drive fa-2x"></i></a>
+        </div>
+        <div class="mt-2">
+          Dibuat dengan semangat olahraga <i class="fas fa-heart text-danger"></i> wilayah.4 ISTIMEWA!!! <i class="fas fa-fire text-warning"></i>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Integrasi Google Apps Script (Google Sheet) -->
+    <script>
+    const API_URL = 'https://script.google.com/macros/s/AKfycbwANFcRlt99RqR-r2tCvu34vh8OBAKOZPufNOwpRM4PpSLMKHxIc-QHUfA0sBzKp5upAA/exec';
+
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch(API_URL)
+        .then(res => res.json())
+        .then(data => {
+          window.lastMedalsData = data.medals; // Simpan medals untuk sinkronisasi
+          renderMedals(data.medals);
+          renderSchedule(data.matches);
+          renderTeams(data.teams);
+          // TODO: render chart jika ingin
+        });
+    });
+
+    function renderMedals(medals) {
+      let html = '';
+      medals.forEach((row) => {
+        html += `<tr>
+          <td>${row.Peringkat}</td>
+          <td>${row.Tim}</td>
+          <td class="text-center">${row.Emas}</td>
+          <td class="text-center">${row.Perak}</td>
+          <td class="text-center">${row.Perunggu}</td>
+          <td class="text-center">${row.Total}</td>
+        </tr>`;
+      });
+      document.getElementById('medalsTableBody').innerHTML = html;
+    }
+
+    function renderSchedule(matches) {
+      let html = '';
+      matches.forEach(match => {
+        let cabang = (match.Cabang || '').toLowerCase();
+        let detailImages = [];
+        let drawingImages = [];
+        // Default: Tenis Meja
+        if (cabang.includes('badminton')) {
+          detailImages = ['gambar/badminton/detailbadminton.png'];
+          drawingImages = ['gambar/badminton/jadwalpertandinganbadminton.png'];
+        } else if (cabang.includes('tenis lapang')) {
+          detailImages = [
+            'gambar/Tenis Lapang/detailtenislapang1.png',
+            'gambar/Tenis Lapang/detailtenislapang2.png',
+            'gambar/Tenis Lapang/detailtenislapang3.png'
+          ];
+          drawingImages = ['gambar/Tenis Lapang/jadwalpertandingantenislapang.png'];
+        } else if (cabang.includes('voli putera') || cabang.includes('voli puteri')) {
+          detailImages = ['gambar/voli/detailvoli.png'];
+          drawingImages = [
+            'gambar/voli/jadwalpertandinganvoli1.png',
+            'gambar/voli/jadwalpertandinganvoli2.png'
+          ];
+        } else if (cabang.includes('billiard')) {
+          detailImages = [
+            'gambar/billiard/detailbilliard1.png',
+            'gambar/billiard/detailbilliard2.png'
+          ];
+          drawingImages = ['gambar/billiard/jadwalpertandinganbilliard.png'];
+        } else if (cabang.includes('basket putera')) {
+          detailImages = ['gambar/basket/detailbasketputera.png'];
+          drawingImages = ['gambar/basket/drawingbasketputera.png'];
+        } else if (cabang.includes('basket puteri')) {
+          detailImages = ['gambar/basket/detailbasketputera.png'];
+          drawingImages = ['gambar/basket/drawingbasketputeri.png'];
+        } else if (cabang.includes('futsal putera')) {
+          detailImages = [
+            'gambar/futsal/detailfutsal1.png',
+            'gambar/futsal/detailfutsal2.png'
+          ];
+          drawingImages = ['gambar/futsal/drawingfutsal.png'];
+        } else if (cabang.includes('futsal puteri')) {
+          detailImages = [
+            'gambar/futsal/detailfutsal1.png',
+            'gambar/futsal/detailfutsal2.png'
+          ];
+          drawingImages = ['gambar/futsal/drawingfutsalputeri.png'];
+        } else if (cabang.includes('sepak bola 45')) {
+          detailImages = [
+            'gambar/u45/detailu45.png',
+            'gambar/u45/detailu452.png'
+          ];
+          drawingImages = ['gambar/u45/drawingu45.png'];
+        } else if (cabang.includes('mini soccer')) {
+          detailImages = [
+            'gambar/minisoccer/detailminisoccer.png',
+            'gambar/minisoccer/detailminisoccer2.png'
+          ];
+          drawingImages = ['gambar/minisoccer/drawingminisoccer.png'];
+        } else {
+          // Default: Tenis Meja
+          detailImages = ['gambar/tenis meja/detailtenismeja.png'];
+          drawingImages = ['gambar/tenis meja/jadwalpertandingantenismeja.png'];
+        }
+
+        // Format nomor WhatsApp
+        const picPusatNumber = (match.Picpusat || '').replace(/\D/g, '');
+        const picWilayahNumber = (match.Picwilayah || '').replace(/\D/g, '');
+        
+        // Medal information
+        const medalInfo = match.Emas || match.Perak || match.Perunggu ? `
+          <div class="medal-info mt-2 p-2 bg-light rounded">
+            <small class="d-block mb-1"><i class="fas fa-award me-1"></i>Informasi Medali:</small>
+            ${match.Emas ? `<span class="me-2" title="Emas"><i class="fas fa-medal text-warning"></i> ${match.Emas}</span>` : ''}
+            ${match.Perak ? `<span class="me-2" title="Perak"><i class="fas fa-medal text-secondary"></i> ${match.Perak}</span>` : ''}
+            ${match.Perunggu ? `<span title="Perunggu"><i class="fas fa-medal text-bronze"></i> ${match.Perunggu}</span>` : ''}
+          </div>
+        ` : '';
+        
+        html += `<div class="col-md-6 mb-4 col-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">${match.Cabang}</h5>
+              <p class="card-text">
+                <b>${match.Tim1}</b> vs <b>${match.Tim2}</b><br>
+                <i class="fas fa-calendar-alt"></i> ${match.Tanggal} <br>
+                <i class="fas fa-clock"></i> ${match.Jam} <br>
+                <i class="fas fa-map-marker-alt"></i> ${match.Lokasi} <br>
+                <i class="fas fa-user"></i> ${match.Kontak}
+              </p>
+              ${medalInfo}
+              <div class="mt-3">
+                <div class="d-flex gap-2 mb-2">
+                  <button type="button" class="btn btn-outline-primary btn-sm" onclick='showImageModal(${JSON.stringify(detailImages)}, "Ketentuan Pertandingan")'>Detail</button>
+                  <button type="button" class="btn btn-outline-success btn-sm" onclick='showImageModal(${JSON.stringify(drawingImages)}, "Drawing Pertandingan")'>Drawing</button>
+                </div>
+                <div class="d-flex gap-2">
+                  ${picPusatNumber ? `
+                    <a href="https://wa.me/${picPusatNumber}" target="_blank" class="btn btn-success btn-sm w-50">
+                      <i class="fab fa-whatsapp me-1"></i>PIC Pusat
+                    </a>
+                  ` : ''}
+                  ${picWilayahNumber ? `
+                    <a href="https://wa.me/${picWilayahNumber}" target="_blank" class="btn btn-success btn-sm w-50">
+                      <i class="fab fa-whatsapp me-1"></i>PIC Wilayah
+                    </a>
+                  ` : ''}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      });
+      document.getElementById('scheduleContainer').innerHTML = html;
+    }
+
+    function renderTeams(teams) {
+      let html = '';
+      // Ambil data medals dari window jika sudah di-fetch
+      let medalsData = window.lastMedalsData || [];
+      teams.forEach(team => {
+        // Cari data medali untuk tim ini
+        let medal = medalsData.find(m => (m.Tim || '').toLowerCase() === (team['Nama Tim'] || '').toLowerCase());
+        let emas = medal ? medal.Emas : 0;
+        let perak = medal ? medal.Perak : 0;
+        let perunggu = medal ? medal.Perunggu : 0;
+        html += `<div class="col-md-4 mb-4 col-12">
+          <div class="card" style="background:${team.Warna}">
+            <div class="card-body">
+              <h5 class="card-title">${team['Nama Tim']}</h5>
+              <p class="card-text">${team.Singkatan}</p>
+              <div class="mt-2">
+                <span title="Emas" style="margin-right:10px;"><i class="fas fa-medal" style="color:#FFD700;"></i> ${emas}</span>
+                <span title="Perak" style="margin-right:10px;"><i class="fas fa-medal" style="color:#C0C0C0;"></i> ${perak}</span>
+                <span title="Perunggu"><i class="fas fa-medal" style="color:#CD7F32;"></i> ${perunggu}</span>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      });
+      document.getElementById('teamsContainer').innerHTML = html;
+    }
+    </script>
+<!-- Modal Custom untuk Notifikasi Gambar Jadwal/Detail -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel">Ketentuan Pertandingan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <div id="modalImagePreview"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function showImageModal(imgArr, title) {
+  let html = '';
+  if (Array.isArray(imgArr)) {
+    imgArr.forEach(src => {
+      html += `<img src="${src}" alt="Preview" style="width:100%;height:auto;max-height:70vh;margin-bottom:1rem;border-radius:12px;box-shadow:0 2px 16px #0003;object-fit:contain;">`;
+    });
+  } else {
+    html = `<img src="${imgArr}" alt="Preview" style="width:100%;height:auto;max-height:70vh;border-radius:12px;box-shadow:0 2px 16px #0003;object-fit:contain;">`;
+  }
+  document.getElementById('modalImagePreview').innerHTML = html;
+  document.getElementById('imageModalLabel').textContent = title || 'Ketentuan Pertandingan';
+  var modal = new bootstrap.Modal(document.getElementById('imageModal'));
+  modal.show();
+}
+</script>
+<script>
+  setTimeout(() => location.reload(), 35 * 60 * 1000);
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const sections = ['home', 'schedule', 'medals', 'teams'];
+  const navLinks = sections.map(id => document.querySelector(`a[href="#${id}"]`));
+
+  function onScroll() {
+    let scrollPos = window.scrollY + 80; // 80px offset for navbar
+    let current = sections[0];
+    for (let id of sections) {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= scrollPos) current = id;
+    }
+    navLinks.forEach(link => link && link.classList.remove('active'));
+    const activeLink = document.querySelector(`a[href="#${current}"]`);
+    if (activeLink) activeLink.classList.add('active');
+  }
+
+  window.addEventListener('scroll', onScroll);
+
+  // Optional: Smooth scroll
+  navLinks.forEach(link => {
+    if (!link) return;
+    link.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href').replace('#', '');
+      const target = document.getElementById(targetId);
+      if (target) {
+        e.preventDefault();
+        window.scrollTo({
+          top: target.offsetTop - 60, // offset for navbar
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+});
+</script>
+<script>
+function updateTanggal() {
+    const hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    const bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    
+    const sekarang = new Date();
+    const namaHari = hari[sekarang.getDay()];
+    const tanggal = sekarang.getDate();
+    const namaBulan = bulan[sekarang.getMonth()];
+    const tahun = sekarang.getFullYear();
+    
+    document.getElementById('tanggalRealtime').textContent = 
+        `${namaHari}, ${tanggal} ${namaBulan} ${tahun}`;
+}
+
+// Update tanggal saat halaman dimuat
+document.addEventListener('DOMContentLoaded', function() {
+    updateTanggal();
+    // Update setiap menit
+    setInterval(updateTanggal, 60000);
+});
+</script>
+
+    <!-- Gallery Modal -->
+    <div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <button type="button" class="btn-close position-absolute end-0 top-0 m-3 bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img id="galleryModalImage" src="" alt="Gallery Preview" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function showGalleryImage(src) {
+        document.getElementById('galleryModalImage').src = src;
+    }
+    </script>
+
+</body>
+</html>
